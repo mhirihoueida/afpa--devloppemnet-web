@@ -1,0 +1,48 @@
+
+j'ai utulisé  automysqlbackup, qui est un programme utilitaire , qui est disponible dans les référentiels Ubuntu.
+
+Cet utilitaire peut être programmé pour effectuer automatiquement des sauvegardes à intervalles réguliers.
+
+Pour installer j'ai  tapé, ce qui suit dans le terminal :
+
+sudo apt-get install automysqlbackup
+
+puis j'ai Exécuté la commande en tapant :
+
+sudo automysqlbackup
+
+Le fichier de configuration principal pour automysqlbackup se trouve dans "/etc/default/automysqlbackup". puis j'ai ouvert ce fichier avec la commande suivante  :
+
+sudo nano /etc/default/automysqlbackup
+Vous pouvez voir que ce fichier, par défaut, affecte de nombreuses variables par le fichier MySQL situé dans "/etc/mysql/debian.cnf". Ceci contient les informations de connexion de maintenance
+
+À partir de ce fichier, il lit l'utilisateur, le mot de passe et les bases de données qui doivent être sauvegardés.
+
+L'emplacement par défaut des sauvegardes est "/var/lib/automysqlbackup". Recherchez dans ce répertoire pour voir la structure des sauvegardes :
+
+sudo ls /var/lib/automysqlbackup
+j'ai réçu comme réponse 
+
+daily  monthly weekly
+
+puis j'ai regardé  dans le répertoire daily, à travers la commande ci dessus ,j'ai pu  voir un sous-répertoire pour chaque base de données, à l'intérieur duquel se trouve un dump SQL compressé à partir du moment où la commande a été exécutée :
+
+sudo ls -R /var/lib/automysqlbackup/daily
+ 
+pour exemple : 
+database_name information_schema performance_schema 
+
+./database_name: 
+database_name_2013-08-27_23h30m.Tuesday.sql.gz 
+
+./information_schema: 
+information_schema_2013-08-27_23h30m.Tuesday.sql.gz 
+
+./performance_schema.sqlm.eszday: 
+performance_schema23h2013-0830
+Ubuntu installe un script cron avec ce programme qui l'exécutera tous les jours. Il organisera les fichiers dans le répertoire approprié.
+
+dans mon cas , pour notre dossier conçernant notre base de données gescom_afpa 
+
+/var/lib/automysqlbackup/daily/newdatabase:
+newdatabase_2021-07-12_14h46m.lundi.sql.gz
