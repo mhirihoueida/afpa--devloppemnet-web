@@ -158,24 +158,17 @@ JOIN shops on employees.emp_sho_id=shops.sho_id
 where emp_pos_id=14 AND sho_city = 'Arras' );
 
 -- requette pour chamger la poste de de l'employé de pépiniériste a manager:
-
-UPDATE employees SET emp_pos_id  = (select pos_id FROM posts WHERE pos_libelle ='Manager(/geuse)') 
-where emp_id=( SELECT emp_id FROM employees 
-JOIN posts on employees.emp_pos_id=posts.pos_id 
-where employees.emp_enter_date =(SELECT min(emp_enter_date)FROM employees 
-JOIN shops on employees.emp_sho_id=shops.sho_id where emp_pos_id=14 AND sho_city = 'Arras' ));
-
+UPDATE employees
+SET emp_pos_id = '2'
+WHERE emp_id = 10
 -- modifier le salare de l'employé qui va remplaser Madame Amity/
+UPDATE employees
+SET emp_superior_id = 10
+WHERE emp_pos_id = 14 AND emp_sho_id = 2
 
-UPDATE employees SET emp_salary=emp_salary*1.05
-where emp_id=(SELECT emp_id FROM employees JOIN posts on employees.emp_pos_id=posts.pos_id 
-where employees.emp_enter_date =(SELECT min(emp_enter_date)FROM employees JOIN shops on employees.emp_sho_id=shops.sho_id 
-where emp_pos_id=14 AND sho_city = 'Arras' ));
 
---anciens collègues pépiniéristes passent sous sa direction
 
-update employees SET emp_superior_id=2 WHERE emp_pos_id =@emp_idd 
-WHERE emp_pos_id = (select pos_id from posts  where pos_libelle = 'Pépiniériste' ) and emp_sho_id=(select sho_id from shops WHERE sho_city='Arras');
+
 
 
 --Ecrire la transaction
@@ -189,13 +182,16 @@ update employees set emp_pos_id = (select pos_id FROM posts WHERE pos_libelle='r
 SET @emp_pos_idd = (select pos_id FROM posts WHERE pos_libelle ='Manager(/geuse)');
 --recupere l'identifiant de l'employer qui va remplacer madame HANNAH:
 set @emp_idd=(SELECT emp_id FROM employees JOIN posts on employees.emp_pos_id=posts.pos_id where employees.emp_enter_date =(SELECT min(emp_enter_date)FROM employees JOIN shops on employees.emp_sho_id=shops.sho_id where emp_pos_id=14 AND sho_city = 'Arras' )) 
--- modifier la pocte de l'employer qui va remplacer madame HANNAH de Pépiniériste à Manager:
+-- modifier le poste de l'employer qui va remplacer madame HANNAH de Pépiniériste à Manager:
 UPDATE employees SET emp_pos_id  =@emp_pos_idd where emp_id= @emp_idd;
---modifier le salaire de cet employé: .
+--(dans notre cas ,UPDATE employees SET emp_pos_id = '2' WHERE emp_id = 10)
+
+--modifier le salaire de cet employé: 
 UPDATE employees SET emp_salary=emp_salary*1.05 where emp_id= @emp_idd;
+
 --anciens collègues pépiniéristes passent sous sa direction de cet employé:
 update employees SET emp_superior_id=@emp_pos_idd WHERE emp_pos_id =@emp_idd WHERE emp_pos_id = (select pos_id from posts  where pos_libelle = 'Pépiniériste' ) and emp_sho_id=(select sho_id from shops WHERE sho_city='Arras');
-
+--(dans notre cas de base de données gescom , UPDATE employees SET emp_superior_id = 10 WHERE emp_pos_id = 14 AND emp_sho_id = 2)
 commit
 
 
