@@ -1,0 +1,216 @@
+*Exercice 9.2
+Ecrivez un algorithme qui demande un mot à l’utilisateur et qui affiche à l’écran le nombre de lettres de ce mot 
+(c'est vraiment tout bête)
+
+Variable Mot en Caractère
+Variable Nb en Entier
+Debut
+Ecrire "Entrez un mot : "
+Lire Mot
+Nb ← Len(Mot)
+Ecrire "Ce mot compte ", Nb, " lettres"
+Fin
+
+
+* Exercice 9.3
+
+Ecrivez un algorithme qui demande une phrase à l’utilisateur et qui affiche à l’écran le nombre de mots de cette phrase. 
+On suppose que les mots ne sont séparés que par des espaces .
+
+remarque (compter par une boucle le nombre d'espaces de la phrase, 
+          et on en déduit le nombre de mots. La boucle examine les caractères de la phrase un par un, 
+          du premier au dernier, et les compare à l'espace.)
+
+Variable Bla en Caractère
+Variables Nb, i en Entier
+Debut
+Ecrire "Entrez une phrase : "
+Lire Bla
+Nb ← 0
+Pour i ← 1 à Len(Bla)
+  Si Mid(Bla, i , 1) = " " Alors (--si dans la phrase BLA , à la position i , pour une place on trouve une espéce ça veut
+                                 dire que c'est le passage entre deux mots )
+    Nb ← Nb + 1
+  FinSi
+i suivant
+Ecrire "Cette phrase compte ", Nb + 1, " mots"
+Fin         
+
+*Exercice 9.4
+
+Ecrivez un algorithme qui demande une phrase à l’utilisateur 
+et qui affiche à l’écran le nombre de voyelles contenues dans cette phrase.
+
+
+solution 1:
+Variable Bla en Caractère
+Variables Nb, i, j en Entier
+Debut
+Ecrire "Entrez une phrase : "
+Lire Bla
+Nb ← 0
+Pour i ← 1 à Len(Bla)
+  Si Mid(Bla, i, 1) = "a" ou Mid(Bla, i, 1) = "e" ou Mid(Bla, i, 1) = "i" ou Mid(Bla, i, 1) = "o" ou Mid(Bla, i, 1) = "u" ou Mid(Bla, i, 1) = "y" Alors
+    Nb ← Nb + 1
+  FinSi
+i suivant
+Ecrire "Cette phrase compte ", Nb, " voyelles"
+Fin
+solution2:(Solution 2 : on stocke toutes les voyelles dans une chaîne. Grâce à la fonction Trouve, 
+                        on détecte immédiatement si le caractère examiné est une voyelle ou non.)
+
+  Variables Bla, Voy en Caractère
+Variables Nb, i, j en Entier
+Debut
+Ecrire "Entrez une phrase : "
+Lire Bla
+Nb ← 0
+Voy ← "aeiouy"
+Pour i ← 1 à Len(Bla)
+  Si Trouve(Voy, Mid(Bla, i, 1)) <> 0 Alors
+    Nb ← Nb + 1
+  FinSi
+i suivant
+Ecrire "Cette phrase compte ", Nb, " voyelles"
+Fin                     
+
+
+
+*Exercice 9.5
+Ecrivez un algorithme qui demande une phrase à l’utilisateur.
+Celui-ci entrera ensuite le rang d’un caractère à supprimer, et la nouvelle phrase doit être affichée 
+remarque:Il n'existe aucun moyen de supprimer directement un caractère d'une chaîne… autrement qu'en procédant par collage. 
+Il faut donc concaténer ce qui se trouve à gauche du caractère à supprimer, avec ce qui se trouve à sa droite.
+
+Variable Bla en Caractère
+Variables Nb, i, j en Entier
+Début
+Ecrire "Entrez une phrase : "
+Lire Bla
+Ecrire "Entrez le rang du caractère à supprimer : "
+Lire Nb
+L ← Len(Bla)
+Bla ← Mid(Bla, 1, Nb – 1) & Mid(Bla, Nb + 1, L – Nb)
+Ecrire "La nouvelle phrase est : ", Bla
+Fin
+
+
+* Exercice 9.6 - Cryptographie 1
+Un des plus anciens systèmes de cryptographie (aisément déchiffrable) consiste à décaler les lettres d’un message pour le rendre 
+illisible. Ainsi, les A deviennent des B, les B des C, etc. Ecrivez un algorithme qui demande une phrase à l’utilisateur et qui la code selon ce principe.
+
+
+remarque : il y a une règle générale : pour chaque lettre, on détecte sa position dans l'alphabet, et on la remplace par la lettre occupant la position 
+suivante. Seul cas particulier, la vingt-sixième lettre (le Z) doit être codée par la première (le A), et non par la vingt-septième, qui n'existe pas !
+
+Variables Bla, Cod, Alpha en Caractère
+Variables i, Pos en Entier
+Début
+Ecrire "Entrez la phrase à coder : "
+Lire Bla
+Alpha ← "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+Cod ← ""
+Pour i ← 1 à Len(Bla)
+  Let ← Mid(Bla, i, 1)
+  Si Let <> "Z" Alors
+    Pos ← Trouve(Alpha, Let)
+    Cod ← Cod & Mid(Alpha, Pos + 1, 1)
+  Sinon
+    Cod ← Cod & "A"
+  FinSi
+i Suivant
+Bla ← Cod
+Ecrire "La phrase codée est : ", Bla
+Fin
+
+*Exercice 9.7 - Cryptographie 2 - le chiffre de César
+Une amélioration (relative) du principe précédent consiste à opérer avec un décalage non de 1, mais d’un nombre quelconque de lettres. Ainsi, par exemple, si l’on choisit un décalage de 12, les A deviennent des M, les B des N, etc.
+Réalisez un algorithme sur le même principe que le précédent, mais qui demande en plus quel est le décalage à utiliser. 
+
+remarque: Cet algorithme est une généralisation du précédent. Mais là, comme on ne connaît pas d'avance le décalage à appliquer, 
+on ne sait pas a priori combien de "cas particuliers", à savoir de dépassements au-delà du Z,Il faut donc trouver un moyen simple
+de dire que si on obtient 27, il faut en réalité prendre la lettre numéro 1 de l'alphabet, que si on obtient 28, il faut en réalité 
+prendre la numéro 2, etc. Ce moyen simple existe : il faut considérer le reste de la division par 26, autrement dit le modulo.
+Il y a une petite ruse supplémentaire à appliquer, puisque 26 doit rester 26 et ne pas devenir 0.
+
+Variable Bla, Cod, Alpha en Caractère
+Variables i, Pos, Décal en Entier
+Début
+Ecrire "Entrez le décalage à appliquer : "
+Lire Décal
+Ecrire "Entrez la phrase à coder : "
+Lire Bla
+Alpha ← "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+Cod ← ""
+Pour i ← 1 à Len(Bla)
+  Let ← Mid(Bla, i, 1)
+  Pos ← Trouve(Alpha, Let)
+  NouvPos ← Mod(Pos + Décal, 26)
+  Si NouvPos = 0 Alors
+    NouvPos ← 26
+  FinSi
+  Cod ← Cod & Mid(Alpha, NouvPos, 1)
+i Suivant
+Bla ← Cod
+Ecrire "La phrase codée est : ", Bla
+Fin
+
+*xercice 9.8 - Cryptographie 3
+Une technique ultérieure de cryptographie consista à opérer non avec un décalage systématique, mais par une substitution aléatoire. Pour cela, on utilise un alphabet-clé, dans lequel les lettres se succèdent de manière désordonnée, par exemple :
+HYLUJPVREAKBNDOFSQZCWMGITX
+C’est cette clé qui va servir ensuite à coder le message. Selon notre exemple, les A deviendront des H, les B des Y, les C des L, etc.
+Ecrire un algorithme qui effectue ce cryptage 
+
+Variable Bla, Cod, Alpha en Caractère
+Variables i, Pos, Décal en Entier
+Début
+Ecrire "Entrez le décalage à appliquer : "
+Lire Décal
+Ecrire "Entrez la phrase à coder : "
+Lire Bla
+Alpha ← "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+Cod ← ""
+Pour i ← 1 à Len(Bla)
+  Let ← Mid(Bla, i, 1)
+  Pos ← Trouve(Alpha, Let)
+  NouvPos ← Mod(Pos + Décal, 26)
+  Si NouvPos = 0 Alors
+    NouvPos ← 26
+  FinSi
+  Cod ← Cod & Mid(Alpha, NouvPos, 1)
+i Suivant
+Bla ← Cod
+Ecrire "La phrase codée est : ", Bla
+Fin
+
+
+*Exercice 9.10
+Ecrivez un algorithme qui demande un nombre entier à l’utilisateur. L’ordinateur affiche ensuite le message "Ce nombre est pair" ou "Ce nombre est impair" selon le cas.
+
+Variable Nb en Entier
+Ecrire "Entrez votre nombre : "
+Lire Nb
+Si Nb/2 = Ent(Nb/2) Alors
+  Ecrire "Ce nombre est pair"
+Sinon
+  Ecrire "Ce nombre est impair"
+FinSi
+Fin
+
+
+*Exercice 9.11
+Ecrivez les algorithmes qui génèrent un nombre Glup aléatoire tel que …
+0 =< Glup < 2
+–1 =< Glup < 1
+1,35 =< Glup < 1,65
+Glup émule un dé à six faces
+–10,5 =< Glup < +6,5
+Glup émule la somme du jet simultané de deux dés à six faces
+
+
+a) Glup ← Alea() * 2
+b) Glup ← Alea() * 2 - 1
+c) Glup ← Alea() * 0,30 + 1,35
+d) Glup ← Ent(Alea() * 6) + 1
+e) Glup ← Alea() * 17 – 10,5
+f) Glup ← Ent(Alea()*6) + Ent(Alea()*6) + 2

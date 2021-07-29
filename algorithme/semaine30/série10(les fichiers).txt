@@ -1,0 +1,171 @@
+*Exercice 10.2
+Ecrivez l’algorithme qui produit un résultat similaire au précédent, mais le fichier texte "Exemple.txt" est cette fois de type délimité (caractère de délimitation : /). 
+On produira à l'écran un affichage où pour des raisons esthétiques, ce caractère sera remplacé avec des espaces.
+
+
+Variable Truc en Caractère
+Variable i en Entier
+Debut
+Ouvrir "Exemple.txt" sur 5 en Lecture
+Tantque Non EOF(5)
+  LireFichier 5, Truc
+  Pour i ← 1 à Len(Truc)
+    Si Mid(Truc, i, 1) = "/" Alors
+      Ecrire " "
+    Sinon
+      Ecrire Mid(Truc, i, 1)
+    FinSi
+  i Suivant
+FinTantQue
+Fermer 5
+
+
+
+
+*Exercice 10.3
+On travaille avec le fichier du carnet d’adresses en champs de largeur fixe.
+Ecrivez un algorithme qui permet à l’utilisateur de saisir au clavier un nouvel individu qui sera ajouté à ce carnet d’adresses.
+
+Variables Nom * 20, Prénom * 17, Tel * 10, Mail * 20, Lig en Caractère
+Debut
+Ecrire "Entrez le nom : "
+Lire Nom
+Ecrire "Entrez le prénom : "
+Lire Prénom
+Ecrire "Entrez le téléphone : "
+Lire Tel
+Ecrire "Entrez le nom : "
+Lire Mail
+Lig ← Nom & Prénom & Tel & Mail
+Ouvrir "Adresse.txt" sur 1 pour Ajout
+EcrireFichier 1, Lig
+Fermer 1
+Fin
+
+
+
+*Exercice 10.5
+
+Ecrivez un algorithme qui permette de modifier un renseignement (pour simplifier, disons uniquement le nom de famille) d’un membre du 
+carnet d’adresses. Il faut donc demander à l’utilisateur quel est le nom à modifier, puis quel est le nouveau nom, et mettre à jour 
+le fichier.Si le nom recherché n'existe pas, le programme devra le signaler.
+
+Structure Bottin
+  Nom en Caractère * 20
+  Prénom en Caractère * 15
+  Tel en caractère * 10
+  Mail en Caractère * 20
+Fin Structure
+Tableau Mespotes[] en Bottin
+Variables MonPote en Bottin
+Variables Ancien, Nouveau en Caractère*20
+Variables i, j en Numérique
+Variable Trouvé en Booléen
+Debut
+Ecrire "Entrez le nom à modifier : "
+Lire Ancien
+Ecrire "Entrez le nouveau nom : "
+Lire Nouveau
+
+Ouvrir “Adresse.txt” sur 1 pour Lecture  (--On recopie l'intégralité de "Adresses" dans Fic, tout en recherchant le clampin. 
+                                           Si on le trouve, on procède à la modification.)
+i ← -1
+Trouvé ← Faux
+Tantque Non EOF(1)
+  i ← i + 1
+  Redim MesPotes[i]
+  LireFichier 1, MonPote
+  Si MonPote.Nom = Ancien.Nom Alors
+    Trouvé ← Vrai
+    MonPote.Nom ← Nouveau
+  FinSi
+  MesPotes[i] ← MonPote
+FinTantQue
+Fermer 1
+
+Ouvrir "Adresse.txt" sur 1 pour Ecriture  (-- On recopie ensuite l'intégralité de Fic dans "Adresse")
+Pour j ← 0 à i
+  EcrireFichier 1, MesPotes[j]
+j Suivant
+Fermer 1
+
+Si Trouvé Alors                       (--Et un petit message pour finir !)
+  Ecrire "Modification effectuée"
+Sinon
+  Ecrire "Nom inconnu. Aucune modification effectuée"
+FinSi
+Fin
+
+*Exercice 10.6
+
+Ecrivez un algorithme qui trie les individus du carnet d’adresses par ordre alphabétique.
+
+
+Structure Bottin Nom en Caractère * 20
+Prénom en Caractère * 15
+Tel en caractère * 10
+Mail en Caractère * 20
+Fin Structure
+Tableau Mespotes[] en Bottin
+Variables Mini en Bottin
+Variables i, j en Numérique
+Debut
+    (--On recopie l'intégralité de "Adresses" dans MesPotes)
+Ouvrir "Adresse.txt" sur 1 pour Lecture
+i ← -1 
+Tantque Non EOF(1)
+  i ← i + 1
+  Redim MesPotes[i]
+  LireFichier 1, MesPotes[i]
+FinTantQue
+Fermer 1
+(--On trie le tableau selon l'algorithme de tri par insertion déjà étudié, en utilisant le champ Nom de la structure :)
+Pour j ← 0 à i - 1
+  Mini ← MesPotes[j]
+  posmini ← j
+  Pour k ← j + 1 à i
+    Si MesPotes[k].Nom < Mini.Nom Alors
+      mini ← MesPotes[k]
+      posmini ← k
+    Finsi
+  k suivant
+  MesPotes[posmini] ← MesPotes[j]
+  MesPotes[j] ← Mini
+j suivant
+(--On recopie ensuite l'intégralité du tableau dans "Adresse")
+Ouvrir "Adresse.txt" sur 1 pour Ecriture
+Pour j ← 0 à i
+  EcrireFichier 1, MesPotes[j]
+j suivant
+Fermer 1
+Fin
+
+
+*Exercice 10.7
+Soient Toto.txt et Tata.txt deux fichiers dont les enregistrements ont la même structure. Ecrire un algorithme qui recopie tout 
+le fichier Toto dans le fichier Tutu, puis à sa suite, tout le fichier Tata (concaténation de fichiers).
+
+Variable Lig en Caractère
+Début
+Ouvrir "Tutu.txt" sur 1 pour Ajout
+Ouvrir “Toto.txt” sur 2 pour Lecture
+Tantque Non EOF(2)
+  LireFichier 2, Lig
+  EcrireFichier 1, Lig
+FinTantQue
+Fermer 2
+Ouvrir “Tata.txt” sur 3 pour Lecture
+Tantque Non EOF(3)
+  LireFichier 3, Lig
+  EcrireFichier 1, Lig
+FinTantQue
+Fermer 3
+Fermer 1
+Fin
+
+
+*Exercice 10.8
+Ecrire un algorithme qui supprime dans notre carnet d'adresses tous les individus dont le mail est invalide 
+(pour employer un critère simple, on considèrera que sont invalides les mails ne comportant aucune arobase, ou plus d'une arobase).
+
+

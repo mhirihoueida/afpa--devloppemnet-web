@@ -1,0 +1,46 @@
+*Exercice 8.1
+
+Écrivez un algorithme remplissant un tableau de 6 sur 13, avec des zéros
+
+Tableau Truc[5, 12] en Entier
+Debut
+Pour i ← 0 à 5
+  Pour j ← 0 à 12
+    Truc[i, j] ← 0
+  j Suivant
+i Suivant
+Fin
+
+
+*Exercice 8.6
+
+Soit un tableau T à deux dimensions [12, 8] préalablement rempli de valeurs numériques.
+Écrire un algorithme qui recherche la plus grande valeur au sein de ce tableau.
+
+Variables i, j, iMax, jMax en Numérique
+Tableau T[12, 8] en Numérique   (--Le principe de la recherche dans un tableau à deux dimensions 
+                                est strictement le même que dans un tableau à une dimension,La seule chose qui change, 
+                                c'est qu'ici le balayage requiert deux boucles imbriquées, au lieu d'une seule.)
+
+Debut
+...
+iMax ← 0
+jMax ← 0
+Pour i ← 0 à 12
+  Pour j ← 0 à 8
+    Si T[i,j] > T[iMax,jMax] Alors
+      iMax ← i
+      jMax ← j
+    FinSi
+  j Suivant
+i Suivant
+Ecrire "Le plus grand élément est ", T[iMax, jMax]
+Ecrire "Il se trouve aux indices ", iMax, "; ", jMax
+Fin
+
+
+
+
+
+
+

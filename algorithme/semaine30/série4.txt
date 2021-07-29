@@ -1,0 +1,67 @@
+exercice 4.7 (systéme des points pour le permis )
+
+Variables age, perm, acc, assur en Numérique
+Variables C1, C2, C3 en Booléen
+Variable situ en Caractère
+Début
+Ecrire "Entrez l’âge: "
+Lire age
+Ecrire "Entrez le nombre d'années de permis: "
+Lire perm
+Ecrire "Entrez le nombre d'accidents: "
+Lire acc
+Ecrire "Entrez le nombre d'années d'assurance: "
+Lire assur
+C1 ← age >= 25
+C2 ← perm >= 2
+C3 ← assur > 5
+P ← 0
+Si Non(C1) Alors
+  P ← P + 1
+FinSi
+Si Non(C2) Alors
+  P ← P + 1
+FinSi
+P ← P + acc
+Si P < 3 et C3 Alors
+  P ← P - 1
+FinSi
+Si P = -1 Alors
+  situ ← "Bleu"
+SinonSi P = 0 Alors
+  situ ← "Vert"
+SinonSi P = 1 Alors
+  situ ← "Orange"
+SinonSi P = 2 Alors
+  situ ← "Rouge"
+Sinon
+  situ ← "Refusé"
+FinSi
+Ecrire "Votre situation : ", situ
+Fin
+
+
+
+exercice 4.8 (Ecrivez un algorithme qui a près avoir demandé un numéro de jour,
+ de mois et d'année à l'utilisateur, renvoie s'il s'agit ou non d'une date valide.)
+
+Variables J, M, A, JMax en Numérique
+Variables  B en Booleen
+Début
+Ecrire "Entrez le numéro du jour"
+Lire J
+Ecrire "Entrez le numéro du mois"
+Lire M
+Ecrire "Entrez l'année"
+Lire A
+B ← (A dp 4 et Non(A dp 100)) ou A dp 400
+K1 ← (m=1 ou m=3 ou m=5 ou m=7 ou m=8 ou m=10 ou m=12) et (J>=1 et J=<31)
+K2 ← (m=4 ou m=6 ou m=9 ou m=11) et (J>=1 et J=<30)
+K3 ← m=2 et B et J>=1 et J=<29
+K4 ← m=2 et J>=1 et J=<28
+Si K1 ou K2 ou K3 ou K4 Alors
+  Ecrire "Date valide"
+Sinon
+  Ecrire "Date non valide"
+FinSi
+Fin
