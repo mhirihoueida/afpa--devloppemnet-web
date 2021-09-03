@@ -54,6 +54,8 @@
 
 <h1>Votre formulaire a bien été envoyer</h1>
     <?php
+    // normalement , il affiche la liste des clients , déja saisis à l'avance . 
+    //il faut esseyer de trouver comment récolter les coordonnées des autres clients .
     echo"Votre nom : ".$nom."<br/>";
     echo"Votre prénom : ".$prenom."<br/>";
     echo"Genre : ".$_POST["genre"]."<br/>";
