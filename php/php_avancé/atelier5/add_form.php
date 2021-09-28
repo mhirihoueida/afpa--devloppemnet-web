@@ -58,6 +58,9 @@
     <img src="images/promotion.jpg" alt="promotion" width="100%">
         <div class="container-fluid col-lg-8">
             <h1>Ajout d'un produit</h1>  
+          <?php 
+          // dans la balise form , on note bien la method (post ou get), puis on met ce add_from sous controle en notant bien l'action (add_script )
+            ?>
     <form class="container-fluid col-lg-12" name="ajoutProduit" id="ajout produit" method="post" action="add_script.php" enctype="multipart/form-data">
         <label for="cat_id">Nom catégorie</label>
         <select class="form-control col_8" name="cat_nom" id="cat_nom">

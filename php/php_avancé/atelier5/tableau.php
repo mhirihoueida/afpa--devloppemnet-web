@@ -9,8 +9,8 @@
 
 </head>
 <?php    
-        require "connexion_bdd.php"; 
-        $db = connexionBase(); 
+        require "connexion_bdd.php"; // Inclusion de notre bibliothèque de fonctions
+        $db = connexionBase(); // Appel de la fonction de connexion
         $requete = "SELECT * FROM produits";
         $requete01 = "SELECT * FROM produits ";
         $result = $db->query($requete01);
@@ -65,7 +65,7 @@
                 <th scope="col">Prix</th>
                 <th scope="col">Stock</th>
                 <th scope="col">Couleur</th>
-                <th scope="col">Ajout</th>
+                <th scope="col">Ajout</th>   
                 <th scope="col">Modif</th>
                 <th scope="col">Bloqué</th>
             </tr>
@@ -79,6 +79,7 @@
                 <th scope="row" class="table-warning"><img src="images/<?php echo $row->pro_id.".".$row->pro_photo;?>" width="75"></th>
                 <td ><?php echo $row->pro_id;?></td>
                 <td ><?php echo $row->pro_ref;?></td>
+                <!--quand on appuit sur libellé , en doit passer directement a un formulaire pré-remplie,(qui est details.php (ce formulaire est en get d'ou la balise php qui récupére l'id de produit en bas )) --> 
                 <td class="table-warning"><a class="nav-link" href="details.php?pro_id=<?php echo $row->pro_id?>"><?php echo $row->pro_libelle;?></a></td>
                 <td ><?php echo $row->pro_prix;?></td>
                 <td ><?php echo $row->pro_stock;?></td>
